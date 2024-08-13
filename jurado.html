@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jurado Dashboard</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Signika+Negative:wght@300..700&display=swap" rel="stylesheet">
+  
+</head>
+<style>body {
+  font-family: 'Signika Negative', sans-serif;
+   background-image: url("https://cdn.glitch.global/dd67a867-ee25-4bee-981a-7488c739ae8d/3616.jpg?v=1723488806906");
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 0;
+  height: 92vh; /* 100% de la altura de la ventana */
+  width: 98vw; /* 100% del ancho de la ventana */
+  background-attachment: fixed;
+  .card-text {
+  color: white; /* Cambia el color del texto a blanco */
+}
+
+}</style>
+<body>
+  <div class="container">
+    <h1 id="jurado-name">Jurado</h1>
+    <button id="logout-button" class="btn btn-danger" style="color:black">Cerrar Sesión</button>
+    <button id="profile-button" class="btn btn-warning">Editar Perfil</button>
+
+    <!-- Botones para mostrar las listas -->
+    <div class="mt-4">
+      <button id="toggle-anteproyectos" class="btn btn-info">Mostrar Anteproyectos</button>
+
+      <button id="toggle-proyectos" class="btn btn-info">Mostrar Proyectos</button>
+    </div>
+
+    <!-- Sección para mostrar detalles de anteproyectos -->
+    <h3>Anteroyectos Enviados</h3>
+    <div id="anteproyecto-detail" class="mt-4 d-none">
+      
+      
+      <!-- Aquí se mostrarán los detalles de los anteproyectos -->
+    </div>
+
+    <!-- Sección para mostrar proyectos enviados por los estudiantes -->
+    <div id="proyectos-enviados" class="mt-4 d-none"  >
+      <h3>Proyectos Enviados</h3>
+      <div id="proyectos-list">
+        <!-- Aquí se mostrarán los proyectos enviados -->
+      </div>
+    </div>
+    <!-- Botón para abrir el modal de cambio de contraseña -->
+<button type="button" class="btn btn-light" style="margin-top:10px" id="change-password-button" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+  Cambiar Contraseña
+</button>
+
+
+<!-- Modal para cambiar contraseña -->
+<div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="changePasswordModalLabel">Cambiar Contraseña</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="change-password-form">
+          <div class="mb-3">
+            <label for="current-password" class="form-label">Contraseña Actual</label>
+            <input type="password" class="form-control" id="current-password" required>
+          </div>
+          <div class="mb-3">
+            <label for="new-password" class="form-label">Nueva Contraseña</label>
+            <input type="password" class="form-control" id="new-password" required>
+          </div>
+          <div class="mb-3">
+            <label for="confirm-new-password" class="form-label">Confirmar Nueva Contraseña</label>
+            <input type="password" class="form-control" id="confirm-new-password" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Actualizar Contraseña</button>
+        </form>
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+    <!-- Modal para el perfil del jurado -->
+    <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="profileModalLabel">Editar Perfil</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="profile-form">
+              <div class="form-group">
+                <label for="profile-full-name">Nombre Completo</label>
+                <input type="text" class="form-control" id="profile-full-name" required>
+              </div>
+              <div class="form-group">
+                <label for="profile-email">Email</label>
+                <input type="email" class="form-control" id="profile-email" required>
+              </div>
+              <div class="form-group">
+                <label for="profile-professional-title">Título Profesional</label>
+                <input type="text" class="form-control" id="profile-professional-title" required>
+              </div>
+              <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal para enviar observación -->
+    <div class="modal fade" id="observationModal" tabindex="-1" aria-labelledby="observationModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="observationModalLabel">Enviar Observación</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="observation-form">
+              <input type="hidden" id="anteproyecto-id">
+              <div class="mb-3">
+                <label for="observation-text" class="form-label">Observación</label>
+                <textarea class="form-control" id="observation-text" rows="3" required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Enviar Observación</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal para edición de estado del anteproyecto -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editModalLabel">Editar Estado del Anteproyecto</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>El estado del anteproyecto ha sido modificado. Puedes editar la información si es necesario.</p>
+            <button class="btn btn-success mt-2" data-id="${anteproyecto.id}" data-jurado="1" data-action="accept">Aceptar</button>
+            <button class="btn btn-danger mt-2" data-id="${anteproyecto.id}" data-jurado="1" data-action="reject">Rechazar</button>
+            <button class="btn btn-success mt-2" data-id="${anteproyecto.id}" data-jurado="2" data-action="accept">Aceptar</button>
+            <button class="btn btn-danger mt-2" data-id="${anteproyecto.id}" data-jurado="2" data-action="reject">Rechazar</button>
+          
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  <div class="modal fade" id="editProjectModal" tabindex="-1" aria-labelledby="editProjectModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editProjectModalLabel">Editar Estado del Proyecto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>El estado del proyecto ha sido modificado. Puedes aceptar o rechazar el proyecto, y enviar observaciones si es necesario.</p>
+          <button class="btn btn-success mt-2" data-id="${project.id}" data-action="accepte">Aceptar</button>
+          <button class="btn btn-danger mt-2" data-id="${project.id}" data-action="rejecte">Rechazar</button>
+          
+
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="encryption.js"></script>
+  <script type="module" src="./firebase.js"></script>
+  <script type="module" src="./jurado.js"></script>
+</body>
+</html>

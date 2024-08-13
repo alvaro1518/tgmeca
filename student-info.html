@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Info</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="mb-4">Completa tu perfil</h1>
+    <form id="student-info-form">
+      <div class="form-group">
+        <label for="full-name">Nombre completo:</label>
+        <input type="text" id="full-name" name="full-name" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="age">Edad:</label>
+        <input type="number" id="age" name="age" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="major">Carrera:</label>
+        <input type="text" id="major" name="major" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="semester">Semestre:</label>
+        <input type="text" id="semester" name="semester" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="phone">Teléfono:</label>
+        <input type="tel" id="phone" name="phone" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="gender">Género:</label>
+        <select id="gender" name="gender" class="form-control" required>
+          <option value="male">Masculino</option>
+          <option value="female">Femenino</option>
+          <option value="other">Otro</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+  </div>
+
+  <!-- Bootstrap Bundle with Popper -->
+  
+  <!-- Import student-info.js as a module -->
+  <script type="module" src="student-info.js"></script>
+</body>
+</html>

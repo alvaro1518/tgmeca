@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirección</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script>
+        function decrypt(encryptedText) {
+            const SECRET_KEY = 'mi_clave_secreta_1234567890';
+            try {
+                const bytes = CryptoJS.AES.decrypt(encryptedText, SECRET_KEY);
+                return bytes.toString(CryptoJS.enc.Utf8);
+            } catch (error) {
+                console.error('Error al descifrar los datos:', error);
+                throw error;
+            }
+        }
+
+        async function handleRedirect() {
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                const encryptedData = urlParams.get('data');
+
+                if (!encryptedData) {
+                    throw new Error('No se encontró el parámetro de redirección.');
+                }
+
+                const decryptedPage = decrypt(decodeURIComponent(encryptedData));
+                if (decryptedPage) {
+                    window.location.href = decryptedPage;
+                } else {
+                    throw new Error('No se pudo descifrar la página.');
+                }
+            } catch (error) {
+                console.error('Error al redirigir:', error);
+                document.body.innerHTML = '<h1>Error al redirigir</h1>';
+            }
+        }
+
+        // Llama a la función de redirección cuando el script se carga
+        handleRedirect();
+    </script>
+</head>
+<body>
+    <h1>Redirigiendo...</h1>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+    "rewrites": [
+      { "source": "/admin", "destination": "/admin.html" },
+      { "source": "/jurado", "destination": "/jurado.html" },
+      { "source": "/student-info", "destination": "/student-info.html" },
+      { "source": "/register", "destination": "/register.html" },
+      { "source": "/login", "destination": "/login.html" },
+      { "source": "/index", "destination": "/index.html" },
+      { "source": "/student-info", "destination": "/student-info.html" },
+      { "source": "/dashboard", "destination": "/dashboard.html" },
+      { "source": "/proyecto", "destination": "/proyecto.html" },
+      { "source": "/anteproyecto", "destination": "/anteproyecto.html" },
+      { "source": "/preinscripcion", "destination": "/preinscripcion.html" },
+      { "source": "/formulariojurado", "destination": "/jurado-form.html" },
+      { "source": "/profile", "destination": "/profile.html" }
+    ]
+
+  }

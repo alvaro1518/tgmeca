@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Proyecto</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Signika+Negative:wght@300..700&display=swap" rel="stylesheet">
+  
+  <script type="module" src="./proyecto.js"></script>
+  <style>
+    body {
+      font-family: 'Signika Negative', sans-serif;
+      background-image: url("https://cdn.glitch.global/dd67a867-ee25-4bee-981a-7488c739ae8d/3616.jpg?v=1723488806906");
+      background-size: cover;
+      background-repeat: no-repeat;
+      margin: 0;
+      height: 92vh; /* 100% de la altura de la ventana */
+      width: 98vw; /* 100% del ancho de la ventana */
+      background-attachment: fixed;
+    }
+    .card-text {
+      color: white; /* Cambia el color del texto a blanco */
+    }
+    .btn {
+      border-radius: 20px; /* Bordes redondeados */
+      transition: background-color 0.3s, transform 0.3s; /* Animación suave */
+    }
+    .btn:hover {
+      transform: scale(1.05); /* Aumentar tamaño al pasar el mouse */
+    }
+    .form-label{
+      color:black;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <h1>Gestión de Proyecto</h1>
+    <button id="logout-button" class="btn btn-danger">Cerrar Sesión</button>
+    <div id="content-container" style="display:none;">
+      <form id="proyecto-form">
+        <div class="mb-3">
+          <label for="projectTitle" class="form-label">Título del Proyecto</label>
+          <input type="text" class="form-control" id="projectTitle" required>
+        </div>
+        <div class="mb-3">
+          <label for="projectSummary" class="form-label">Resumen del Proyecto</label>
+          <textarea class="form-control" id="projectSummary" rows="3" required></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="projectFile" class="form-label">Archivo del Proyecto (Word)</label>
+          <input type="file" class="form-control" id="projectFile" accept=".doc,.docx" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar Proyecto</button>
+      </form>
+
+      <div id="project-display" class="mt-4">
+        <!-- Aquí se mostrará el proyecto guardado con botones para editar o eliminar -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para editar el proyecto -->
+  <div class="modal fade" id="editProjectModal" tabindex="-1" aria-labelledby="editProjectModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editProjectModalLabel">Editar Proyecto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="edit-project-form">
+            <div class="mb-3">
+              <label for="editProjectTitle" class="form-label">Título del Proyecto</label>
+              <input type="text" class="form-control" id="editProjectTitle" required>
+            </div>
+            <div class="mb-3">
+              <label for="editProjectSummary" class="form-label">Resumen del Proyecto</label>
+              <textarea class="form-control" id="editProjectSummary" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="editProjectFile" class="form-label">Archivo del Proyecto (Word)</label>
+              <input type="file" class="form-control" id="editProjectFile" accept=".doc,.docx">
+            </div>
+            <button type="submit" class="btn btn-primary">Actualizar Proyecto</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS (Opcional) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
